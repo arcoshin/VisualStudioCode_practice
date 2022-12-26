@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 
 <head>
     <meta charset="UTF-8">
@@ -41,6 +41,11 @@
 </head>
 
 <body>
+    <!-- 資料處理時畫面 -->
+    <div class="d-none my-5" id="show">
+        <span>資料處理中....<img src="https://i.imgur.com/pm9SKUg.gif"></span>
+    </div>
+
     <main class="container">
         <h1 class="text-center mt-3">ARCO表單測試系統</h1>
 
@@ -49,10 +54,11 @@
         <form action="https://script.google.com/macros/s/AKfycbzJYXRQcIWxUjPPbFtxd8da3Q2bNZ2j9p4DROe67lVfjz_JLcJs_KzMN8ZMIaDliBJB/exec" method="post">
             <div class="row" id="form_item">
             </div>
+
             <!-- 隱藏-->
             <input type="hidden" name="op" value="payment" id="op">
             <input type="hidden" name="callback_url" value="" id="callback_url">
-            <button type="submit" class="btn btn-primary w-100" id="submit">送出</button>
+            <button type="submit" class="btn btn-primary w-100" id="submit">提交</button>
         </form>
     </main>
 
@@ -65,90 +71,105 @@
 
             let box = document.querySelector('.container');
             box.insertAdjacentHTML("afterend", "<div class='text-center mt-3'>container寬度:" + box.clientWidth + "px</div>" + "<div class='text-center mt-3'>網頁可見區域寬：" + document.body.clientWidth + "px</div>");
-        }
 
 
+            // 整理出來的結構資料
+            let url = 'https://script.google.com/macros/s/AKfycbzJYXRQcIWxUjPPbFtxd8da3Q2bNZ2j9p4DROe67lVfjz_JLcJs_KzMN8ZMIaDliBJB/exec'
 
-        // 整理出來的結構資料
-        let url = 'https://script.google.com/macros/s/AKfycbzJYXRQcIWxUjPPbFtxd8da3Q2bNZ2j9p4DROe67lVfjz_JLcJs_KzMN8ZMIaDliBJB/exec'
-
-        let data = {
-            op:'api_stru_payment'
-        }
-
-        let stru;
-        $.ajax({
-            url: url, // 請求資料的網址
-            data: data, // 如果需要傳送資料時，則將資料設定在這裡
-            method: 'GET', // 請求資料的方式(Ex:POST / GET / PUT...等)
-            dataType: 'json', // 請求資料的類型(Ex:xml, json, script, or html...等)
-            async: false, // 預設是true=非同步,false=同步 (true時整行可省略)
-            beforeSend: function() { // 發送請求前執行的動作
-                //......
-            },
-            success: function(result) { // 當成功接收到資料時
-                stru = result;
-            },
-            error: function(error) { // 當接收資料失敗時
-                console.log(error);
-                //......
+            let data = {
+                op: 'api_stru_payment'
             }
-        });
-        //let stru = [{
-        // label: '繳費單位',
-        //     type: 'select',
-        //     name: 'unit',
-        //     value: '',
-        //     valid: 'required', //required
-        //     option: '中信|玉山|台新|國泰|電費|水費|停車',
-        //     width: '3'
-        // }, {
-        //     label: '繳費日期',
-        //     type: 'date',
-        //     name: 'date',
-        //     value: '',
-        //     valid: 'required', //required
-        //     // valid: 'required min="2022-12-26" max="2022-12-31"',
-        //     // 利用vaild寫入input空白處
-        //     option: '',
-        //     width: '3'
-        // }, {
-        //     label: '繳費金額',
-        //     type: 'text',
-        //     name: 'money',
-        //     value: '',
-        //     valid: 'required', //required
-        //     option: '',
-        //     width: '3'
-        // }, {
-        //     label: '其他',
-        //     type: 'text',
-        //     name: 'ps',
-        //     value: '',
-        //     valid: '', //required
-        //     option: '',
-        //     width: '3'
-        // },
-        // ];
-        let form_item = document.getElementById('form_item');
-        let form_item_html = options_html = ''; //賦值先歸零
-        let options;
-        // let a = "123abc";
-        // let c = "000"+ a +"qwe" ;
-        // console.log(c);
-        for (let i in stru) {
-            if (stru[i]['type'] === 'text' ||
-                stru[i]['type'] === 'url' ||
-                stru[i]['type'] === 'email' ||
-                stru[i]['type'] === 'password' ||
-                stru[i]['type'] === 'date' ||
-                stru[i]['type'] === 'month' ||
-                stru[i]['type'] === 'week' ||
-                stru[i]['type'] === 'number' ||
-                stru[i]['type'] === 'color' ||
-                stru[i]['type'] === 'search'
-            ) { //簡答================================定位線
-                form_item_html += `
+
+            $.ajax({
+                url: url, // 請求資料的網址
+                data: data, // 如果需要傳送資料時，則將資料設定在這裡
+                method: 'GET', // 請求資料的方式(Ex:POST / GET / PUT...等)
+                dataType: 'json', // 請求資料的類型(Ex:xml, json, script, or html...等)
+                async: true, // 預設是true=非同步,false=同步 (true時整行可省略)
+                beforeSend: function() { // 發送請求前執行的動作
+                    $("#show").prop("class", "my-5");
+                    //......
+                },
+                success: function(result) { // 當成功接收到資料時
+                    $("#show").prop("class", "d-none my-5");
+                    let stru = result;
+                    //產生表單語法
+                    create_template('form_item', stru);
+
+                    $("#date").prop({
+                        min: '2022-12-26',
+                        max: '2023-01-10'
+                    });
+
+                    let callback_url = document.getElementById('callback_url');
+                    callback_url.value = window.location.href;
+
+                },
+                error: function(error) { // 當接收資料失敗時
+                    $("#show").prop("class", "d-none my-5");
+                    console.log(error);
+                    //......
+                }
+            });
+        }
+
+        //樣板語法
+        function create_template(target_id, stru) {
+            //let stru = [{
+            // label: '繳費單位',
+            //     type: 'select',
+            //     name: 'unit',
+            //     value: '',
+            //     valid: 'required', //required
+            //     option: '中信|玉山|台新|國泰|電費|水費|停車',
+            //     width: '3'
+            // }, {
+            //     label: '繳費日期',
+            //     type: 'date',
+            //     name: 'date',
+            //     value: '',
+            //     valid: 'required', //required
+            //     // valid: 'required min="2022-12-26" max="2022-12-31"',
+            //     // 利用vaild寫入input空白處
+            //     option: '',
+            //     width: '3'
+            // }, {
+            //     label: '繳費金額',
+            //     type: 'text',
+            //     name: 'money',
+            //     value: '',
+            //     valid: 'required', //required
+            //     option: '',
+            //     width: '3'
+            // }, {
+            //     label: '其他',
+            //     type: 'text',
+            //     name: 'ps',
+            //     value: '',
+            //     valid: '', //required
+            //     option: '',
+            //     width: '3'
+            // },
+            // ];
+            let form_item = document.getElementById('form_item');
+            let form_item_html = options_html = ''; //賦值先歸零
+            let options;
+            // let a = "123abc";
+            // let c = "000"+ a +"qwe" ;
+            // console.log(c);
+            for (let i in stru) {
+                if (stru[i]['type'] === 'text' ||
+                    stru[i]['type'] === 'url' ||
+                    stru[i]['type'] === 'email' ||
+                    stru[i]['type'] === 'password' ||
+                    stru[i]['type'] === 'date' ||
+                    stru[i]['type'] === 'month' ||
+                    stru[i]['type'] === 'week' ||
+                    stru[i]['type'] === 'number' ||
+                    stru[i]['type'] === 'color' ||
+                    stru[i]['type'] === 'search'
+                ) { //簡答================================定位線
+                    form_item_html += `
                 <div class="col-sm-${stru[i]['width']} mb-3">
                     <label for="${stru[i]['name']}"
                     class="form-label">${stru[i]['label']}
@@ -161,13 +182,13 @@
                     "${stru[i]['valid']}>
                 </div>`;
 
-            } else if (stru[i]['type'] === 'radio') { //便當
-                options = stru[i]['option'].split('|');
-                options_html = '' //清空賦值
+                } else if (stru[i]['type'] === 'radio') { //便當
+                    options = stru[i]['option'].split('|');
+                    options_html = '' //清空賦值
 
-                for (let j in options) {
-                    let required = (j == '0' ? stru[i]['valid'] : '');
-                    options_html += `
+                    for (let j in options) {
+                        let required = (j == '0' ? stru[i]['valid'] : '');
+                        options_html += `
                         <div class="form-check form-check-inline">
                         <input type="${stru[i]['type']}"
                         name="${stru[i]['name']}"
@@ -181,11 +202,11 @@
                         ${options[j]}
                         </label>
                         </div>`
-                }
-                console.log(options_html);
-                //跑迴圈
-                //選項html
-                form_item_html += `
+                    }
+                    console.log(options_html);
+                    //跑迴圈
+                    //選項html
+                    form_item_html += `
                     <div class="col-sm-${stru[i]['width']} mb-3">
                     <label class="form-label w-100">
                     ${stru[i]['label']}
@@ -193,18 +214,18 @@
                     ${options_html}
                     </div>`;
 
-            } else if (stru[i]['type'] === 'select') { //部門
-                options = stru[i]['option'].split('|');
-                console.log(options)
-                options_html = '' //要先清空賦值
-                for (let j in options) {
-                    options_html += `
+                } else if (stru[i]['type'] === 'select') { //部門
+                    options = stru[i]['option'].split('|');
+                    console.log(options)
+                    options_html = '' //要先清空賦值
+                    for (let j in options) {
+                        options_html += `
                         <option value="${options[j]}">${options[j]}</option>`
-                }
-                //1.替換變數
-                //2.stru[i]['option'] =>陣列
-                //3.遍歷
-                form_item_html += `
+                    }
+                    //1.替換變數
+                    //2.stru[i]['option'] =>陣列
+                    //3.遍歷
+                    form_item_html += `
                     <div class="col-sm-${stru[i]['width']} mb-3">
                     <label class="form-label">
                         ${stru[i]['label']}</label>
@@ -216,18 +237,18 @@
                     </select>
                     </div>`
 
-            } else if (stru[i]['type'] === 'select_m') { //地區
-                options = stru[i]['option'].split('|');
-                console.log(options)
-                options_html = '' //要先清空賦值
-                for (let j in options) {
-                    options_html += `
+                } else if (stru[i]['type'] === 'select_m') { //地區
+                    options = stru[i]['option'].split('|');
+                    console.log(options)
+                    options_html = '' //要先清空賦值
+                    for (let j in options) {
+                        options_html += `
                         <option value="${options[j]}">${options[j]}</option>`
-                }
-                //1.替換變數
-                //2.stru[i]['option'] =>陣列
-                //3.遍歷
-                form_item_html += `
+                    }
+                    //1.替換變數
+                    //2.stru[i]['option'] =>陣列
+                    //3.遍歷
+                    form_item_html += `
                     <div class="col-sm-${stru[i]['width']} mb-3">
                     <label class="form-label">
                         ${stru[i]['label']}</label>
@@ -239,10 +260,10 @@
                     </select>
                     </div>`
 
-            } else if (stru[i]['type'] === 'note') { //留言
-                console.log(options)
-                options_html = '' //要先清空賦值
-                form_item_html += `
+                } else if (stru[i]['type'] === 'note') { //留言
+                    console.log(options)
+                    options_html = '' //要先清空賦值
+                    form_item_html += `
                     <div class="col-sm-${stru[i]['width']} mb-3">
                     <label class="form-label">
                         ${stru[i]['label']}</label>
@@ -252,13 +273,13 @@
                     ${stru[i]['valid']}${stru[i]['value']}>
                         請輸入您的留言</textarea>`
 
-            } else if (stru[i]['type'] === 'checkbox') { //加購
-                options = stru[i]['option'].split('|');
-                options_html = '';
-                //let required = stru[i]['valid'] ? `oninput="alert('已偵測到您勾選/取消一個選項')">`:''
-                let required = stru[i]['valid'] ? `oninput="renderCheckbox('${stru[i]['name']}')"` : ''
-                for (let j in options) {
-                    options_html += `
+                } else if (stru[i]['type'] === 'checkbox') { //加購
+                    options = stru[i]['option'].split('|');
+                    options_html = '';
+                    //let required = stru[i]['valid'] ? `oninput="alert('已偵測到您勾選/取消一個選項')">`:''
+                    let required = stru[i]['valid'] ? `oninput="renderCheckbox('${stru[i]['name']}')"` : ''
+                    for (let j in options) {
+                        options_html += `
                     <div class="form-check form-check-inline">
                     <input type="${stru[i]['type']}"
                     name="${stru[i]['name']}"
@@ -270,31 +291,28 @@
                     for="${stru[i]['name']}_${j}">
                     ${options[j]}</label>
                     </div>`;
-                };
-                form_item_html += `
+                    };
+                    form_item_html += `
                 <div class="col-sm-${stru[i]['width']} mb-3">
                 <label class="form-label w-100">${stru[i]['label']}</label>
                 ${options_html}
                 </div>`;
 
-            } else if (stru[i]['type'] === 'hidden') { //op
-                form_item_html += `
+                } else if (stru[i]['type'] === 'hidden') { //op
+                    form_item_html += `
                 <input type="hidden" name="${stru[i]['name']}" value="${stru[i]['value']}" id="${stru[i]['name']}">`;
+                }
+
             }
+            form_item.innerHTML = form_item_html;
 
         }
-        form_item.innerHTML = form_item_html;
+
 
         //設定可供選擇的日期區間
         // $("#date").prop('min', '2022-12-26');
         // $("#date").prop('max', '2022-12-31');
-        $('#date').prop({
-            min: '2022-12-26',
-            max: '2022-12-10'
-        });
 
-        let callback_url = document.getElementById('callback_url');
-        callback_url.value = window.location.href;
 
         //Jquery抓取對象
         $(function() {
