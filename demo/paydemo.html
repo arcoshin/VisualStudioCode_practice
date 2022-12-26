@@ -319,6 +319,7 @@
 
         })
 
+
         //畫面渲染的方法
         function renderCheckbox(name) {
             if (isAtLeastOneChecked(name)) {
@@ -328,6 +329,7 @@
             }
         }
 
+
         //判斷 checkbox 是否有勾選的方法
         function isAtLeastOneChecked(name) {
             let checkboxes = Array.from(document.getElementsByName(name));
@@ -335,6 +337,7 @@
                 return item.checked;
             });
         }
+
 
         //設定屬性的方法
         function setRequired(name) {
@@ -344,6 +347,7 @@
             }
         }
 
+        
         //移除屬性的方法
         function removeRequired(name) {
             let checkboxes = Array.from(document.getElementsByName(name));
