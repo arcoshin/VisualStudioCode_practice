@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            background-color: rgb(196, 181, 154);
+            display: flex;/**實現橫向排列*/
+            flex-direction: row;
+            /*flex-direction 排序樣式
+            column         縱向排列
+            column reverse 反序縱向排列
+            row            橫向排列
+            row reverse    反序橫向排列 */
+            justify-content: center;/**實現置中*/
+            align-items: center;/**實現上下置中，無反應
+            時可以設定背景顏色查看block範圍*/
+            /**
+            justify 主軸方向
+            align   法線方向
+            */
+
+            height: 600px;
+
+
+        }
+
+        .item{
+            width: 100px;/**@w +@200 快捷鍵*/
+            min-height: 100%;
+            background-color: rgb(201, 202, 191);
+            border: 1px solid #666;
+            color: #fff;
+            border-radius: 20px;/**邊緣圓角化*/
+            display: flex;/**彈性化自動排列，需放於容器內方適用*/
+            justify-content: center;
+            align-items: center;
+            font-size: 60px;
+            flex-grow: 1;/**父類實現全員自動水平擴展*/
+        }
+
+        .a{
+            background-color: rgb(221, 127, 127);
+        }
+
+        .b{
+            background-color: rgb(101, 133, 180);
+        }
+
+        .c{
+            background-color: rgb(120, 170, 118);
+            flex-grow: 2;/**重寫自動擴展比例*/
+            align-self: flex-start/**自動彈性撐開*/
+        }
+
+        .d{
+            background-color: rgb(187, 189, 74);
+        }
+
+        .e{
+            background-color: rgb(147, 147, 223);
+        }
+    </style>
+
+</head>
+<body>
+    <div class="box">
+        <div class="item a">A</div>
+        <div class="item b">B</div>
+        <div class="item c">C</div>
+        <div class="item d">D</div>
+        <div class="item e">E</div>
+    </div>
+
+</body>
+</html>

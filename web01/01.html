@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一個網頁</title>
+</head>
+
+<body>
+    <h1>大家好，這是我的第一個網頁&nbsp;<a href="/WEB01/02.html">按此可以前往我的第二個網頁</a></h1>
+    <p>&nbsp;</p>
+    <!--
+        <p></p>連續空白或空段落不會影響頁面排版，因為程式只會認定一個
+        可以使用&nbsp可以插入一空白鍵
+        1. &nbsp; 不換行空格
+        2. &ensp; 半形空格
+        3. &emsp; 全形空格
+        4. &thinsp; 窄空格
+    -->
+
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+
+    <p>
+        這是我的 <br>第&nbsp; 一 &nbsp;個 <strong>網頁
+</body></strong>
+</p>
+
+<p>這是<Strong>string-粗體字，我不僅是將字體加粗，更有語意加重的意思(優化SEO)</strong></p>
+<p>這也是<b>b-粗體字，但我只是把字體加粗</b></p>
+<p>這是<em>eb-斜體字，我不僅是將字體打斜，更有語意加重的意思(優化SEO)</em></p>
+<p>這也是<i>i-斜體字，但我只是把字體打斜</i> </p>
+<p>這是<del>del-刪除線，我不僅是將字體畫線，更有語意修改的意思(優化SEO)</del></p>
+<p>這也是<s>s-刪除線，但我只是把字體畫線</s></p>
+
+<ul type="square">
+    <!-- <ui></ui>表示一個無序列表區塊<li></li> -->
+    <!--type表示排序的邏輯種類
+        disc：默認，實心圓
+        circle：空心圓
+        square：實心方塊
+    -->
+    <li>無順序列表</li>
+    <li>無順序列表</li>
+    <li>無順序列表</li>
+</ul>
+
+<ol type="1">
+    <!-- <oi></oi>表示一個有序列表區塊<li></li> -->
+    <!--type表示排序的邏輯種類
+        1：默認(1, 2, 3, 4, 5)
+        a：小寫字母 (a, b, c, d, e)
+        A：大寫字母(A, B, C, D, E)
+        i：小寫羅馬字母(i, ii, iii, iv)
+        I：大寫羅馬字母(I, II, III, IV)
+    -->
+    <li>有順序列表</li>
+    <li>有順序列表</li>
+    <li>有順序列表</li>
+</ol>
+
+<table border="50">
+    <!-- <table></table>表示一個表格-->
+    <!-- border表示框線向外的寬度，預設為0不顯示 -->
+    <tr>
+    <!-- <tr></tr>表示一行-->
+        <td>第一行第一列(1,1)</td>
+        <!-- <td></td>表示一列-->
+        <td>第一行第二列(1,2)</td>
+        <td>第一行第三列(1,3)</td>
+        <td>第一行第四列(1,4)</td>
+    </tr>
+    <tr>
+        <td>第二行第一列(2,1)</td>
+        <td>第二行第二列(2,2)</td>
+        <td>第二行第三列(2,3)</td>
+        <td>第二行第四列(2,4)</td>
+    </tr>
+    <tr>
+        <td>第三行第一列(3,1)</td>
+        <td>第三行第二列(3,2)</td>
+        <td>第三行第三列(3,3)</td>
+        <td>第三行第四列(3,4)</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

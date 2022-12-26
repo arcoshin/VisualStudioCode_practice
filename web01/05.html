@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <!-- RWD響應式網頁必備元素 Meta -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="網頁描述內容 建議160字以下 可以提升搜尋關鍵字">
+    
+    <title>簡單排個版</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&family=Noto+Serif+TC:wght@300;500;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&family=Noto+Serif+TC:wght@300;500;900&display=swap');
+    </style>
+    <!------------------------------------------------------------------------------------------------------------------------------>
+
+    <style>
+        /*=====================================================
+        導覽列格式
+        =======================================================*/
+        .header {
+            background-color: #000000;
+            /* display: flex; */
+            color: #fff;
+        }
+
+        .header .comp {
+            font-weight: bold;
+            font-size: 30px;
+            align-self: center;
+            flex-shrink: 0;/*聲明不壓縮 */
+        }
+
+        .header a {
+            color: #fa3;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px;
+            transition: .5s;/*轉場動畫:動作總時間*/
+        }
+
+        .header a:hover{/*當滑鼠滑過 .header a 時*/
+            background-color: rgb(3, 81, 92);
+            padding: 10px 20px 10px 20px ;
+        }
+
+        nav {
+            text-align: right;
+            /* width: 100%; */
+            flex-grow: 1;
+        }
+
+        nav .side {
+            margin-right: .5%;
+        }
+
+        /*=====================================================
+        Banner
+        =======================================================*/
+
+        .banner {
+            /*若要控制圖片記得綁定img否則控制對象為整個Block*/
+            width: auto;
+            height: 300px;
+            background-image: url(/WEB01/img/167699.jpg);
+            background-size: cover;
+            background-position: center;
+            /*如果直接控制圖片尺寸，會因為視窗變化而產生擠壓
+            可以設為視窗容器的背景，無實體尺寸，直接控制Block尺寸*/
+            padding: 100px;
+            color: #fff;
+            font-size: 80px;
+        }
+
+        /*=====================================================
+        內容樣式
+        =======================================================*/
+        h1 {
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 900;
+        }
+
+        p.CT {
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 500;
+        }
+
+        p.EN,
+        .banner {
+            font-family: 'Lobster Two', cursive;
+            font-weight: 400;
+        }
+
+        /*=====================================================
+        卡片
+        =======================================================*/
+        .layout {
+            /* display: flex; 取消時更適合手機遊覽*/
+            margin-top: 40px;
+            /*margin參數 上下 左右*/
+        }
+
+        .card {
+            flex: 1 1 auto;
+            /** grow - shrink - basis */
+            margin: 0.5%;
+            /* padding: 1%; 藝術提示，圓角搭配padding不美觀*/
+            border: 1px solid #aaa;
+            border-radius: 10px;
+            position: relative;
+        }
+
+
+        .card .space{/*圖片上方留白 設計用 */
+            height: 20px;
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+            /*圓角參數 左上 右上 右下 左下*/
+            opacity: .8;/*透明度 0~1 */
+            transition: 1.5;
+        }
+
+        .card img:hover{
+            opacity: 1;
+        }
+
+        .card .card-text {
+            width: 90%;
+            margin: auto;
+        }
+
+        .card .tag{
+            background-color: rgb(236, 26, 26);
+            color: rgb(221, 187, 92);
+            font-weight: bold;
+            border-radius: 50%;
+            /*相對位置漂浮模式，可實現上下左右移動，但原位置仍卡位*/
+            /* position: relative; */
+            /* 絕對位置漂浮模式，可實現上下左右移動，而原位置不卡位*/
+            position: absolute;
+            /*絕對位置必須要包覆在相對位置中才能作用，否則會以全視窗作為參照對象*/
+            padding: 25px 10px;
+            top: 10px; left: 10px;
+            z-index: 1;
+
+        }
+
+        /*=====================================================
+        活動簡介
+        =======================================================*/
+        .intro {
+            background-color: #f8dca8;
+            margin-top: 40px 0;
+        }
+
+        .intro .limit {
+            /**前綴記得有空格，鎖住上級用，以免同名類誤判*/
+            background-color: #c5aabb;
+            /* background-color: aqua; */
+            /*顯色用*/
+            width: 80%;
+            margin: auto;
+            /* display: flex; */
+        }
+
+        .intro .limit .infoPics {
+            flex: 1 1 0;
+        }
+
+        .intro .limit .infoPics img {
+            width: 100%;
+            /*綁定img以設定圖片；否則會作用於整體區塊*/
+            vertical-align: bottom;
+            /*修正圖片對齊至區塊底部*/
+        }
+
+        .intro .limit .infoText {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /*大欄位物件總體上下放*/
+            /* justify-content: center;縱向居中 */
+            /* align-items: center; */
+            flex: 1 1 0;
+        }
+        /*=====================================================
+        報名資訊
+        =======================================================*/
+        .project{
+            background-color:rgb(212, 24, 24) ;
+            color: rgb(224, 230, 178);
+            padding: 10px;
+            width: 160px;
+            text-align: center;
+        }
+
+        .p-info{
+            background-color: #f8dca8;
+            padding: 10px;
+            display: none;
+        }
+
+
+        /*=====================================================
+        頁尾
+        =======================================================*/
+        .footer {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 60px;
+        }
+
+        /*=====================================================
+        RWD控制
+        =======================================================*/
+        @media screen and (min-width:768px) {
+            /*可使用 and+條件 但要記得空格
+            設置最小寬768px以模擬 手機用戶端(for iphone)
+            畫面寬大於768px時，自動執行下列程序 轉為PC用戶端 */
+            .layout {
+                display: flex;
+            }
+
+            .intro .limit {
+                display: flex;
+            }
+
+            .header {
+                display: flex;
+
+                /*虛擬工具列 position: fixed; 不隨畫面捲動*/
+                position: fixed;
+                /*半透明不擋螢幕 0.7*/
+                background: rgba(60, 60, 60, 0.7);
+                /*與上方模塊間隙修正接合*/
+                top: 0;
+                /*模塊寬度取決於畫面寬*/
+                width: 100%;
+                /*設置此時層次進入第二層*/
+                z-index: 2;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 導覽列 -->
+    <div class="header">
+        <img src="https://img.logoipsum.com/288.svg" alt="LOGO" style="margin-left: 20px;">
+        <span class="animate__animated animate__bounce">
+            <span class="comp">展新手作坊</span></span>
+        <nav>
+            <a href="#">職人手做</a>
+            <a href="#XX">市集活動</a>
+            <a href="#">年度熱銷</a>
+            <a href="#">作品展示</a>
+            <a href="#" class="side">技術支援</a>
+        </nav>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <!-- <img src="/WEB01/img/超清圖片範例.jpg" alt=""> -->
+        HAND MADE
+    </div>
+
+    <!-- 網頁內容 -->
+    <h1>最新消息</h1>
+    <p class="CT">房屋他就，有限尤其是提升排名可能地上我還不懂損失一邊貨幣高手評估，有利於首先導致高校一本交給，則是以前門口部落格選單，請求及時女生楠雅是什麼，服裝價格股份更新文本還沒有大連簡單節省此外舉行加上，笑容說道設定消費行動，一番解放禁止下一頁沒有什麼多媒體無疑積極不出移動，感到而在這位太陽生命商家代理模樣難道一下子點這裡下載，英國導致特別是營養玻璃集體密碼只能加油平台萬華發佈時間，具體無限推出前面幹部隨時因為變得不起體系品種形象看見，億元顧客總算所有人時間一路不在客服隊伍試題，回家感興趣你會級別，果然。</p>
+    <p class="EN">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo eligendi necessitatibus neque qui, velit reprehenderit laborum illum facere fugiat. Temporibus tempore, magni necessitatibus ipsam placeat saepe minima, repellendus rem harum porro recusandae aliquam! Animi, sed, odio aliquam nobis quasi molestias totam quidem expedita placeat doloribus consequatur natus ratione officiis. Necessitatibus, incidunt? Numquam quasi corporis asperiores repellat ea, tempora nobis alias laborum id necessitatibus vero molestiae soluta nihil aut ratione quibusdam sint excepturi placeat possimus expedita, facere nisi rem eligendi magni! Eveniet necessitatibus ipsam et veniam, eaque quibusdam modi minima? Vitae fuga molestias, dignissimos at debitis quisquam suscipit, asperiores fugiat eaque architecto hic consequuntur adipisci assumenda ipsum tempore earum sequi non iste sed. Pariatur totam id optio amet ipsam provident assumenda ex praesentium reiciendis eos, laborum cum. Omnis, et aliquid ut eum ullam, hic, nostrum totam consequuntur quisquam velit optio! Distinctio possimus, dolore ipsa excepturi exercitationem saepe voluptas, velit sed dolorem alias consequuntur, qui odio veritatis voluptatem animi. Aut, reprehenderit aspernatur? Animi earum eius officiis voluptatem at quaerat eveniet illo fuga, mollitia ea veniam, voluptatum voluptates incidunt! Fugit suscipit, nihil earum error non modi nam alias veritatis consequuntur iure ducimus quidem ipsum tenetur, velit corrupti, nemo doloremque placeat. Dicta, expedita non.</p>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, doloribus atque cum qui nemo voluptatibus odio corrupti quia necessitatibus similique, possimus adipisci culpa commodi ea voluptatum laborum veniam neque soluta.
+    </p>
+
+    <!-- CARD卡片 -->
+    <div class="layout">
+        <div class="card">
+            <div class="space"></div>
+            <!-- <div class="space"></div>......純粹拉空間用 -->
+            <img src="https://picsum.photos/600/400?random1&quot; alt=" CardPicture">
+            <div class="card-text" style="width: 90%; margin: auto;">
+                <h3>Index-1</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti ad illum, quaerat, debitis autem corporis vel ab dolorem eaque accusamus dolore totam enim fugit in veritatis molestias, excepturi exercitationem ratione quibusdam incidunt ex. At placeat repellat sint, nesciunt error doloribus amet adipisci dolore labore inventore, cupiditate culpa omnis dolor iusto, esse dolores sed! Minus, voluptates odit consectetur fugit facilis similique vel eaque vero commodi possimus ea, perspiciatis magni! Iusto sed consequuntur commodi veritatis deleniti magni recusandae facilis. Ut fugiat harum, aspernatur quasi rem delectus magnam! Nihil recusandae id aliquam perspiciatis numquam molestias explicabo sed culpa mollitia delectus, illum minus odit.</p>
+            </div>
+        </div>
+        <div class="card" style="top: -20px">
+            <div class="space"></div>
+            <!-- <div class="space"></div>......純粹拉空間用 -->
+            <div class="tag"><strong>~HOT~</strong></div>
+            <!-- 新增HOT注意跑版 -->
+            <img src="https://picsum.photos/600/400?random2&quot; alt=" CardPicture">
+            <div class="card-text">
+                <h3>Index-2</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti ad illum, quaerat, debitis autem corporis vel ab dolorem eaque accusamus dolore totam enim fugit in veritatis molestias, excepturi exercitationem ratione quibusdam incidunt ex. At placeat repellat sint, nesciunt error doloribus amet adipisci dolore labore inventore, cupiditate culpa omnis dolor iusto, esse dolores sed! Minus, voluptates odit consectetur fugit facilis similique vel eaque vero commodi possimus ea, perspiciatis magni! Iusto sed consequuntur commodi veritatis deleniti magni recusandae facilis. Ut fugiat harum, aspernatur quasi rem delectus magnam! Nihil recusandae id aliquam perspiciatis numquam molestias explicabo sed culpa mollitia delectus, illum minus odit.</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="space"></div>
+            <!-- <div class="space"></div>......純粹拉空間用 -->
+            <img src="https://picsum.photos/600/400?random3&quot; alt=" CardPicture">
+            <div class="card-text" style="width: 90%; margin: auto;">
+                <h3>Index-3</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti ad illum, quaerat, debitis autem corporis vel ab dolorem eaque accusamus dolore totam enim fugit in veritatis molestias, excepturi exercitationem ratione quibusdam incidunt ex. At placeat repellat sint, nesciunt error doloribus amet adipisci dolore labore inventore, cupiditate culpa omnis dolor iusto, esse dolores sed! Minus, voluptates odit consectetur fugit facilis similique vel eaque vero commodi possimus ea, perspiciatis magni! Iusto sed consequuntur commodi veritatis deleniti magni recusandae facilis. Ut fugiat harum, aspernatur quasi rem delectus magnam! Nihil recusandae id aliquam perspiciatis numquam molestias explicabo sed culpa mollitia delectus, illum minus odit.</p>
+            </div>
+        </div>
+    </div>
+<!-- 活動簡介 -->
+    <div class="intro" id="XX">
+        <div class="limit">
+            <div class="infoPics">
+                <img src="https://picsum.photos/600/400?random1" alt="ProjectPicture">
+            </div>
+            <div class="infoText">
+                <h3>活動簡介</h3>
+                <p>打造營銷，手術而言無門報價先後支撐改進毫無黑暗策劃變化中間查看，版本設定都要總體對話那樣意識美元汽車請點擊，他就長度功能而已蘋果不足貢獻主體上去關於實在新聞軍隊，位置這樣臨時環保熱門完整公佈安裝黑暗，老師食品筆者最多宜蘭玄幻期限加油操作系統人類時尚，看來報告車輛事項就像想法退出可見提示激動就能玻璃思維，小遊戲實際上圖文，還會老公陽明山飯店留下俱樂部必要於是對此還沒有，我家站點他是大型情人春天色彩。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 報名方式 -->
+    <div class="project">報名方式</div>
+    <div class="p-info">
+        直播主年齡作品同志學院忍不住趕緊這種鄉民整體訓練創新本地下載，坐在修改碩士遇到英文我看本來，會議發佈時間實用休息氣息全面吸收反正形勢，一遍一支軍事深刻感染生活生活掌握普遍我很獨立魔法社會主義，大部分外掛回答監控患者章節當地相當報名美女股東習慣新浪推進，限制討論導致電影新鮮出了主動，的是請點擊反正衝擊背後正是檔案慢慢街道尊重夢幻本帖我市，通常一部分前面兩次程式主營糖尿病把握事故好激動，你會心裡官方找到和平島真實尚未疾病創作最好遭遇身材找不到，事項影音廣大值得降低主席現有，不可能神經必要通過早就實在體會相機來自招標心中，所說聯繫本科母親做法好了航空漂亮答應，大力高級任務代理，和平島職責推坑王，經。
+    </div>
+
+    <h3>活動說明</h3>
+    <p>組圖上門報名天地美麗命令特殊大約大哥網路狀態法規，政策這段我的心加快登記擴大歐美滿足不可以一聲等等，好了紡織開展下了正在目前依據數量老師玻璃價值，遵守並且人體效率免費電影，實在種子表現日誌零售帳號原文社區可愛頻率位於一定要當前位置，日韓經常自信總數有一些網上只是討論區居然小心有關和諧，庫存房地產先進教育一套，他們的拍攝，寫作有關部門印度接到投資者能不能，熱情快車能在見到那就，開了網易體系專門也是所在都會組成上去請大家聊天就能動畫，品種幾次困難註冊複雜回家都是，比賽走向不得確定在於，對手戰士標準大型一口氣沒有任何到來是誰文章，給你各自取消，穿著至於品種點評在那裡強調嘗試，推廣藍色社區根本，一款。
+    </p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit architecto facere, praesentium assumenda placeat, fugit repellat beatae molestias culpa saepe exercitationem veniam obcaecati harum impedit nihil eos provident inventore aliquam similique labore, autem quasi suscipit tempora ullam? Dolore sequi nulla possimus amet laudantium quibusdam, asperiores, debitis consectetur dolorem, ratione ipsa suscipit inventore rerum nostrum in. Magnam porro voluptas reiciendis iusto amet error, quibusdam deserunt voluptate quae molestias nihil cum laboriosam architecto quisquam quidem itaque. Omnis quidem nemo laudantium pariatur, distinctio dicta illum similique dolorem quae deserunt blanditiis libero impedit tempore tempora aperiam repudiandae cupiditate voluptate vero veniam, ut ab vitae eligendi hic. Eveniet, adipisci, aperiam earum architecto hic quis cum porro aliquid unde harum deleniti optio vel dicta ratione quaerat incidunt autem sint voluptatem magnam. Ex alias nihil, et perspiciatis aut molestiae maxime error? Dignissimos tenetur dolores illo exercitationem ea maxime quam molestias nulla esse? Culpa tempora modi voluptas iste necessitatibus illum dolore praesentium impedit officia, non qui, ullam voluptatibus maxime magni sapiente ex quam doloribus repudiandae quas ipsum, deleniti est vel accusantium. Impedit doloremque iusto atque quibusdam. Reiciendis consectetur deserunt fugiat odio nam velit vero, sit cum laborum eos dolorum? Maxime sapiente fuga dolorum ipsa est culpa perferendis reiciendis!</p>
+    <div class="footer">
+        Copyright&COPY;2022 by arcoshin
+    </div>
+
+<!-- 載入JQuery函式庫 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<!-- JQuery控制 -->
+<script>
+    $(".project").hover(function(){/*Click:滑鼠點擊時 Hover:滑鼠經過時*/
+        $(".p-info").slideToggle();/*show:顯示Block slideToggle:自動開關動畫*/
+    });
+</script>
+
+</body>
+
+</html>

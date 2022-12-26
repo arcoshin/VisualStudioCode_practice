@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style樣式導入範例</title>
+    <!-- 導入style樣式表 -->
+    <link rel="stylesheet" href="/WEB01/style/StyleExample.css">
+    <style>
+        .title1 {
+            color: rgb(155, 49, 72);
+        }
+
+        #newID {
+            color: rgb(37, 153, 168);
+        }
+
+        #newID2 {
+            color: #000;
+        }
+
+        .impr {
+            color: rgb(255, 0, 0);
+        }
+
+        .spec {
+            color: rgb(54, 173, 209);
+            font-size: 60px;
+        }
+
+        table {
+            /*直接定義全部的表格外部大框*/
+            border: 10px solid #a66;
+            border-collapse: collapse;
+            /* border-collapse 表示框線樣式，預設separate；
+                separate :td框線間產生間距，表示td框線分離，
+                collapse :td框線間消除間距，表示td框線合併，
+                因此設定間距時，collapse模式下才有作用*/
+        }
+
+        th {
+            /*表格的標頭*/
+            font-size: 48px;
+            border: 10px solid #a66;
+            background: rgb(36, 108, 145);
+            color: antiquewhite;
+            padding: 30px;
+            /**設定內距 : 物件與區塊的距離*/
+        }
+
+        tr {
+            text-align: center;
+        }
+
+        td {
+            /*直接定義內部的區塊外部小框*/
+            font-size: 35px;
+            border: 10px solid rgb(28, 162, 196);
+
+            width: 500px;
+            height: 100;
+            /* 若不設定表格寬，會自動依內容撐開 */
+            text-align: center;
+            /* 文字水平置中預設靠左，垂直方向默認依照區塊高度垂直置中 */
+            padding: 30px;
+        }
+
+        .Outside {
+            background-color: #4d98dd;
+            width: 80%;
+            /* height: 800px; */
+            margin: auto;
+            display: flex;
+        }
+
+        .Inside {
+            background: rgb(127, 114, 168);
+            margin: 10px;
+            border: 5px solid rgb(15, 68, 94);
+            padding: 10px;
+            /* width: 300px;不定義可自適應視窗大小 */
+            /* height: 400px;不定義可自適應視窗大小 */
+            /* float: left;目前極少用 */
+
+        }
+
+        .Inside h2{
+            font-size: 20px;
+            color: #248;
+        }
+
+        .Inside p{
+            color: #268;
+        }
+
+        .Inside img{
+            width: 100%;
+        }
+
+        .pic{
+            /**無法使用margin置中的原因是div本體已經占滿全幅
+            圖片與文字等內部內容置中，應該使永text標籤*/
+            text-align: center;
+            background: #fa4;
+            padding: 10px;/**調整圖片間的內距*/
+            width: 80%;
+            margin: auto;
+        }
+
+        .pic img{
+            margin: 0 20 10px;
+
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- 樣式導入可以讓風格統一，更重要的是便於批量管理樣式，如換季時風格全面修改等等 -->
+    <h1>
+        Title-h1
+    </h1>
+
+    <p>
+        <!-- 文中強調，可以直接使用標籤 -->
+        Lorem ipsum dolor, <strong class="impr">amet consectetur adipisicing elit.</strong>Perferendis, cumque. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam possimus, provident adipisci quidem blanditiis ad iure voluptas consectetur accusamus voluptatum quae? Alias, <span class="spec">nam hic voluptatibus asperiores harum cumque! Porro magnam maiores sequi cum, corrupti nihil voluptatum velit perferendis sunt distinctio, </span>fuga commodi consequatur, dolores omnis tenetur animi minus. Quibusdam, libero.
+    </p>
+    <!-- 導入圖片 -->
+    <img src="https://picsum.photos/id/684/300/200" alt="圖片加載失敗">
+    <img src="https://picsum.photos/id/658/300/200" alt="圖片加載失敗">
+    <!--
+        1.導入picsum可以自動生成假圖，亦可導入圖片網址
+        2.src 的路徑id/後接的是路徑資料夾，刪除即變為隨機產生圖片，
+        3.再往後兩個數為尺寸，此處可直接修改圖片大小，
+        4.alt 表示為圖片失效時的替代方案
+    -->
+
+    <!-- 導入表格，現在幾乎不使用 -->
+    <table border="5">
+        <!-- border 表示框線，
+            實際上只作用於整個table大外框
+            以及內部td小外框，因而產生雙線而有立體感
+            也因此border只能使用於table以及td
+            而border增大時，只有大框會增大，內部不受影響
+        -->
+        <tr>
+            <!-- 表格標頭應升級使用th，以利開發工具存取 -->
+            <th>學號</th>
+            <th>姓名</th>
+            <th>成績</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>zs</td>
+            <td>70</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>ls</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>ww</td>
+            <td>95</td>
+        </tr>
+    </table>
+    <!-- 表格本身為Block物件，佔據左右全幅 -->
+    <p>
+        <!-- 段落本身為Block物件，佔據左右全幅 -->
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt consequuntur corporis illo eius quos magnam rem, suscipit minus libero voluptates, fuga obcaecati? Rem amet impedit repellendus ipsam necessitatibus pariatur veniam
+    </p>
+
+    <div class="pic">
+        <img src="https://picsum.photos/200/300?random1" alt="">
+        <!-- 圖片區塊為Inline物件，屬於行元素可併排 -->
+        <img src="https://picsum.photos/200/300?random2" alt="">
+        <img src="https://picsum.photos/200/300?random3" alt="">
+        <img src="https://picsum.photos/200/300?random4" alt="">
+        <img src="https://picsum.photos/200/300?random5" alt="">
+    </div>
+
+    <!-- div區域為Block物件，佔據左右全幅 -->
+    <div class="Outside">
+        <div class="Inside">
+            <h2>
+                div示範區
+            </h2>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates debitis sit doloremque perferendis adipisci possimus voluptatibus neque quis excepturi iusto!
+            </p>
+<img src="https://picsum.photos/600/400?random6" alt="">
+        </div>
+        <div class="Inside">
+            <h2>
+                div示範區
+            </h2>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates debitis sit doloremque perferendis adipisci possimus voluptatibus neque quis excepturi iusto!
+            </p>
+<img src="https://picsum.photos/600/400?random7" alt="">
+        </div>
+        <div class="Inside">
+            <h2>
+                div示範區
+            </h2>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates debitis sit doloremque perferendis adipisci possimus voluptatibus neque quis excepturi iusto!
+            </p>
+<img src="https://picsum.photos/600/400?random8" alt="">
+        </div>
+    </div>
+    <h2 class="title1">
+        Title-h201
+    </h2>
+    <!-- 不欲使用統一樣式時可透過標籤內實現重寫style，或者批量聲明一個calss，並於標頭直接打點調閱，以定義樣式內容 -->
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, vero.
+    </p>
+    <h2 id="newID">
+        <!-- 不欲使用統一樣式時也可或者聲明一個id，並於標頭使用#調閱以定義樣式內容，不同於class可以批量分類定義樣式，id雖也可於代碼編譯上達成，但若不維持id的唯一性時，會影響後期與其他工具的結合開發 -->
+        Title-h202
+    </h2>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, quae?
+    </p>
+    <h2 class="title1">
+        Title-h203
+    </h2>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, quibusdam.
+    </p>
+
+    <h2>
+        <!-- 未定義則繼續使用stytle.css 樣式 -->
+        Title-h204
+    </h2>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, quibusdam.
+    </p>
+
+    <h2 id="newID2">
+        Title-h205
+    </h2>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, quibusdam.
+    </p>
+
+    <h2 id="">
+        <!-- 未定義則繼續使用stytle.css 樣式 -->
+        Title-h206
+    </h2>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, quibusdam.
+    </p>
+
+</body>
+
+</html>
