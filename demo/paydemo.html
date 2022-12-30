@@ -59,6 +59,7 @@
             <!-- 隱藏-->
             <input type="hidden" name="op" value="payment" id="op">
             <input type="hidden" name="callback_url" value="" id="callback_url">
+            <input type="hidden" name="callback_home_url" value="" id="callback_home_url">
             <button type="submit" class="btn btn-primary w-100" id="submit">提交</button>
         </form>
     </main>
@@ -105,6 +106,11 @@
 
                     let callback_url = document.getElementById('callback_url');
                     callback_url.value = window.location.href;
+
+                    //首頁網址
+                    let callback_home_url = document.getElementById('callback_home_url');
+                    let home_url = window.location.href;
+                    callback_home_url.value = home_url.replace(window.location.pathname, '')
 
                 },
                 error: function(error) { // 當接收資料失敗時
