@@ -51,7 +51,8 @@
 
 
 
-        <form action="https://script.google.com/macros/s/AKfycbzJYXRQcIWxUjPPbFtxd8da3Q2bNZ2j9p4DROe67lVfjz_JLcJs_KzMN8ZMIaDliBJB/exec" method="post">
+        <!-- <form action="https://script.google.com/macros/s/AKfycbzJYXRQcIWxUjPPbFtxd8da3Q2bNZ2j9p4DROe67lVfjz_JLcJs_KzMN8ZMIaDliBJB/exec" method="post"> -->
+        <form action="" class="" method="post" id="myForm">
             <div class="row" id="form_item">
             </div>
 
@@ -75,6 +76,8 @@
 
             // 整理出來的結構資料
             let url = 'https://script.google.com/macros/s/AKfycbzJYXRQcIWxUjPPbFtxd8da3Q2bNZ2j9p4DROe67lVfjz_JLcJs_KzMN8ZMIaDliBJB/exec'
+
+            $('#menu').prop('action', url);
 
             let data = {
                 op: 'api_stru_payment'
@@ -151,7 +154,7 @@
             //     width: '3'
             // },
             // ];
-            let form_item = document.getElementById('form_item');
+            let form_item = document.getElementById(target_id);
             let form_item_html = options_html = ''; //賦值先歸零
             let options;
             // let a = "123abc";
