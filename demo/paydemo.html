@@ -43,18 +43,16 @@
 <body>
     <!-- 資料處理時畫面 -->
     <div class="d-none my-5" id="show">
-        <span>資料處理中....<img src="https://i.imgur.com/pm9SKUg.gif"></span>
+        <span>資料處理中....
+            <img src="https://i.imgur.com/pm9SKUg.gif">
+        </span>
     </div>
 
     <main class="container">
         <h1 class="text-center mt-3">ARCO表單測試系統</h1>
 
-
-
-        <!-- <form action="https://script.google.com/macros/s/AKfycbzJYXRQcIWxUjPPbFtxd8da3Q2bNZ2j9p4DROe67lVfjz_JLcJs_KzMN8ZMIaDliBJB/exec" method="post"> -->
         <form action="" class="" method="post" id="myForm">
-            <div class="row" id="form_item">
-            </div>
+            <div class="row" id="form_item"></div>
 
             <!-- 隱藏-->
             <input type="hidden" name="op" value="payment" id="op">
@@ -124,48 +122,10 @@
 
         //樣板語法
         function create_template(target_id, stru) {
-            //let stru = [{
-            // label: '繳費單位',
-            //     type: 'select',
-            //     name: 'unit',
-            //     value: '',
-            //     valid: 'required', //required
-            //     option: '中信|玉山|台新|國泰|電費|水費|停車',
-            //     width: '3'
-            // }, {
-            //     label: '繳費日期',
-            //     type: 'date',
-            //     name: 'date',
-            //     value: '',
-            //     valid: 'required', //required
-            //     // valid: 'required min="2022-12-26" max="2022-12-31"',
-            //     // 利用vaild寫入input空白處
-            //     option: '',
-            //     width: '3'
-            // }, {
-            //     label: '繳費金額',
-            //     type: 'text',
-            //     name: 'money',
-            //     value: '',
-            //     valid: 'required', //required
-            //     option: '',
-            //     width: '3'
-            // }, {
-            //     label: '其他',
-            //     type: 'text',
-            //     name: 'ps',
-            //     value: '',
-            //     valid: '', //required
-            //     option: '',
-            //     width: '3'
-            // },
-            // ];
             let form_item = document.getElementById(target_id);
             let form_item_html = options_html = ''; //賦值先歸零
             let options;
-            // let a = "123abc";
-            // let c = "000"+ a +"qwe" ;
-            // console.log(c);
+
             for (let i in stru) {
                 if (stru[i]['type'] === 'text' ||
                     stru[i]['type'] === 'url' ||
@@ -187,8 +147,8 @@
                     name="${stru[i]['name']}"
                     value="${stru[i]['value']}"
                     class="form-control"
-                    id="${stru[i]['name']}
-                    "${stru[i]['valid']}>
+                    id="${stru[i]['name']}"
+                    ${stru[i]['valid']}>
                 </div>`;
 
                 } else if (stru[i]['type'] === 'radio') { //便當
@@ -196,7 +156,9 @@
                     options_html = '' //清空賦值
 
                     for (let j in options) {
-                        let required = (j == '0' ? stru[i]['valid'] : '');
+                        //1.替換變數
+                        //2.stru[i]['option'] =>陣列
+                        //3.遍歷
                         options_html += `
                         <div class="form-check form-check-inline">
                         <input type="${stru[i]['type']}"
@@ -204,28 +166,25 @@
                         value="${options[j]}"
                         class="form-check-input"
                         id="${stru[i]['name']}_${j}"
-                        ${required}>
-
+                        ${stru[i]['valid']}>
                         <label class="form-check-label"
                         for="${stru[i]['name']}_${j}">
                         ${options[j]}
                         </label>
                         </div>`
                     }
-                    console.log(options_html);
-                    //跑迴圈
-                    //選項html
+                    //1.替換變數
+                    //2.stru[i]['option'] =>陣列
+                    //3.遍歷
                     form_item_html += `
                     <div class="col-sm-${stru[i]['width']} mb-3">
                     <label class="form-label w-100">
-                    ${stru[i]['label']}
-                    </label>
+                    ${stru[i]['label']}</label>
                     ${options_html}
                     </div>`;
 
                 } else if (stru[i]['type'] === 'select') { //部門
                     options = stru[i]['option'].split('|');
-                    console.log(options)
                     options_html = '' //要先清空賦值
                     for (let j in options) {
                         options_html += `
@@ -248,7 +207,6 @@
 
                 } else if (stru[i]['type'] === 'select_m') { //地區
                     options = stru[i]['option'].split('|');
-                    console.log(options)
                     options_html = '' //要先清空賦值
                     for (let j in options) {
                         options_html += `
@@ -269,24 +227,28 @@
                     </select>
                     </div>`
 
-                } else if (stru[i]['type'] === 'note') { //留言
-                    console.log(options)
+                } else if (stru[i]['type'] === 'textarea') { //留言
                     options_html = '' //要先清空賦值
+
                     form_item_html += `
                     <div class="col-sm-${stru[i]['width']} mb-3">
                     <label class="form-label">
                         ${stru[i]['label']}</label>
                     <textarea name="${stru[i]['name']}"
                     class="form-control"
-                    id="textarea" rows="5"
-                    ${stru[i]['valid']}${stru[i]['value']}>
-                        請輸入您的留言</textarea>`
+                    id="${stru[i]['name']}"
+                    rows="5"
+                    ${stru[i]['valid']}>
+                        ${stru[i]['value']}
+                        </textarea>
+                    </div>`
 
                 } else if (stru[i]['type'] === 'checkbox') { //加購
                     options = stru[i]['option'].split('|');
                     options_html = '';
-                    //let required = stru[i]['valid'] ? `oninput="alert('已偵測到您勾選/取消一個選項')">`:''
-                    let required = stru[i]['valid'] ? `oninput="renderCheckbox('${stru[i]['name']}')"` : ''
+                    let required = stru[i]['valid'] ? //三元運算
+                        `oninput="renderCheckbox('${stru[i]['name']}')"` : ''
+
                     for (let j in options) {
                         options_html += `
                     <div class="form-check form-check-inline">
@@ -295,12 +257,13 @@
                     value="${options[j]}"
                     class="form-check-input"
                     id="${stru[i]['name']}_${j}"
-                    ${stru[i]['valid']} ${required}
+                    ${stru[i]['valid']} ${required}>
                     <label class="form-check-label"
                     for="${stru[i]['name']}_${j}">
                     ${options[j]}</label>
                     </div>`;
                     };
+
                     form_item_html += `
                 <div class="col-sm-${stru[i]['width']} mb-3">
                 <label class="form-label w-100">${stru[i]['label']}</label>
@@ -309,7 +272,10 @@
 
                 } else if (stru[i]['type'] === 'hidden') { //op
                     form_item_html += `
-                <input type="hidden" name="${stru[i]['name']}" value="${stru[i]['value']}" id="${stru[i]['name']}">`;
+                <input type="hidden"
+                name="${stru[i]['name']}"
+                value="${stru[i]['value']}"
+                id="${stru[i]['name']}">`;
                 }
 
             }
@@ -321,12 +287,6 @@
         //設定可供選擇的日期區間
         // $("#date").prop('min', '2022-12-26');
         // $("#date").prop('max', '2022-12-31');
-
-
-        //Jquery抓取對象
-        $(function() {
-
-        })
 
 
         //畫面渲染的方法
@@ -365,7 +325,6 @@
             }
         }
     </script>
-
 
 </body>
 
